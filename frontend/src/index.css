@@ -20,3 +20,19 @@
 ::-webkit-scrollbar-thumb {
   @apply bg-blue-500 dark:bg-blue-400 rounded-full;
 }
+
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+// filepath: tailwind.config.js
+module.exports = {
+  content: ['./src/**/*.{html,js,jsx,ts,tsx,vue,svelte}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
