@@ -7,6 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id                String   @id @default(cuid())
+  email             String   @unique
+  password          String
+  name              String
+  role              String   @default("citizen")
+  emailVerified     DateTime?          // null = not verified
+  verificationToken String?  @unique   // token sent to user's email
+  resetToken        String?  @unique   // for password reset (used later)
+  resetTokenExpiry  DateTime?          // for password reset
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  issues            Issue[]
+}
+
 model Issue {
   id        String   @id @default(cuid())
   title     String
@@ -17,8 +32,10 @@ model Issue {
   priority  String   @default("Medium")
   lat       Float?
   lng       Float?
-  image     String?   // base64
-  logs      Json      @default("[]")
+  image     String?   // Cloudinary URL
+  logs      Json     @default("[]")
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
