@@ -9,6 +9,9 @@ import {
   PlusCircle, Search, Download, SortAsc, MapPin, X, 
   Moon, Sun, Bell, User, LogOut, Shield 
 } from 'lucide-react';
+import SkeletonCard from './components/SkeletonCard';
+import SkeletonStats from './components/SkeletonStats';
+import SkeletonForm from './components/SkeletonForm';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
@@ -138,7 +141,57 @@ function App() {
     URL.revokeObjectURL(url);
   };
 
-  if (loading) return <div className="text-center p-10">Loading...</div>;
+  if (loading) {
+  return (
+    <div className="container mx-auto px-4 py-8 space-y-8">
+      {/* Header skeleton */}
+      <div className="flex justify-between items-center">
+        <div className="h-10 w-48 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer" />
+        <div className="flex gap-3">
+          <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full animate-shimmer" />
+          <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full animate-shimmer" />
+        </div>
+      </div>
+      
+      {/* Map toggle skeleton */}
+      <div className="flex justify-end">
+        <div className="h-10 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer" />
+      </div>
+      
+      {/* Form skeleton */}
+      <SkeletonForm />
+      
+      {/* Stats skeleton */}
+      <SkeletonStats />
+      
+      {/* Toolbar skeleton */}
+      <div className="flex flex-wrap gap-4 items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-xl shadow">
+        <div className="flex flex-wrap gap-3 items-center">
+          <div className="h-10 w-64 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer" />
+          <div className="flex gap-2">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="h-8 w-16 bg-gray-200 dark:bg-gray-700 rounded-full animate-shimmer" />
+            ))}
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <div className="h-8 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer" />
+          <div className="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-shimmer" />
+        </div>
+      </div>
+      
+      {/* Issues grid skeleton */}
+      <div>
+        <div className="h-8 w-40 bg-gray-200 dark:bg-gray-700 rounded mb-6 animate-shimmer" />
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {[...Array(6)].map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
   if (error) return <div className="text-center p-10 text-red-500">{error}</div>;
   if (!user) return null; // shouldn't happen because PrivateRoute guards
 
