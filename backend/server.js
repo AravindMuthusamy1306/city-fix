@@ -3,7 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
 import issueRoutes from './routes/issues.js';
-import userRoutes from './routes/user.js'; 
+import userRoutes from './routes/user.js';
+import adminRoutes from './routes/admin.js';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json({ limit: '10mb' }));
 app.use('/api/auth', authRoutes);
 app.use('/api/issues', issueRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/admin', adminRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'CityFix API is running' });
