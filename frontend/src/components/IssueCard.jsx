@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MapPin, Calendar, Tag, CheckCircle, PlayCircle, Trash2, Flag, ExternalLink, History } from "lucide-react";
 
-function IssueCard({ _id, title, category, status, priority, location, date, image, coordinates, logs = [], onStatusChange, onDelete }) {
+function IssueCard({ id, title, category, status, priority, location, date, image, coordinates, logs = [], onStatusChange, onDelete }) {
   const [showLogs, setShowLogs] = useState(false);
   
   const statusConfig = {
@@ -23,6 +23,14 @@ function IssueCard({ _id, title, category, status, priority, location, date, ima
       window.open(`https://www.openstreetmap.org/?mlat=${coordinates.lat}&mlon=${coordinates.lng}#map=15/${coordinates.lat}/${coordinates.lng}`, "_blank");
     } else {
       window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`, "_blank");
+    }
+  };
+
+  const handleDelete = () => {
+    if (id) {
+      onDelete(id);
+    } else {
+      console.error("Issue ID is undefined");
     }
   };
 
@@ -73,13 +81,13 @@ function IssueCard({ _id, title, category, status, priority, location, date, ima
 
         <div className="flex gap-2 pt-2 border-t border-gray-100 dark:border-gray-700">
           {status !== "Closed" && (
-            <button onClick={() => onStatusChange(_id, "Closed")}
+            <button onClick={() => onStatusChange(id, "Closed")}
               className="flex-1 flex items-center justify-center gap-1 bg-green-500 hover:bg-green-600 text-white py-1.5 rounded-md text-sm transition">
               <CheckCircle size={16} /> Close
             </button>
           )}
           {status !== "Closed" && status !== "In Progress" && (
-            <button onClick={() => onStatusChange(_id, "In Progress")}
+            <button onClick={() => onStatusChange(id, "In Progress")}
               className="flex-1 flex items-center justify-center gap-1 bg-blue-500 hover:bg-blue-600 text-white py-1.5 rounded-md text-sm transition">
               <PlayCircle size={16} /> Start
             </button>
@@ -89,7 +97,7 @@ function IssueCard({ _id, title, category, status, priority, location, date, ima
             title="View on map">
             <ExternalLink size={16} />
           </button>
-          <button onClick={() => onDelete(_id)}
+          <button onClick={handleDelete}
             className="p-1.5 bg-red-100 dark:bg-red-900/30 hover:bg-red-200 dark:hover:bg-red-800 text-red-600 dark:text-red-400 rounded-md transition">
             <Trash2 size={16} />
           </button>
