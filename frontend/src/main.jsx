@@ -10,12 +10,12 @@ import App from './App';
 import Contact from './Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Profile from './pages/Profile';
-import AdminPanel from './pages/AdminPanel';
 import VerifyEmail from './pages/VerifyEmail';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
-
+import Profile from './pages/Profile';
+import AdminPanel from './pages/AdminPanel';
+ 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
@@ -27,7 +27,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-
+ 
           {/* Protected routes with Layout */}
           <Route element={<Layout />}>
             <Route path="/" element={<PrivateRoute><App /></PrivateRoute>} />
