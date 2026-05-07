@@ -193,7 +193,7 @@ FRONTEND_URL=
 ## Frontend `.env`
  
 ```env
-VITE_API_URL=
+VITE_API_URL=https://city-fix-two.vercel.app/
 ```
  
 ---
@@ -204,7 +204,7 @@ VITE_API_URL=
  
 ### Build Command
 ```bash
-npm install && npx prisma generate
+npm install
 ```
  
 ### Start Command
@@ -221,7 +221,7 @@ Add all required environment variables in Render dashboard.
 Set environment variable:
  
 ```env
-VITE_API_URL=https://your-backend.onrender.com/api
+VITE_API_URL=https://city-fix-38wq.onrender.com/api
 ```
  
 Deploy frontend from:
